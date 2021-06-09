@@ -20,10 +20,17 @@ section {
   padding: 50px;
 }
 
+section > .button-start {
+  width: 40%;
+  height: 20%;
+  margin: 50px 30%;
+  font-size: 30px;
+}
+
 section > .text-container {
   width: 80%;
-  height: 60%;
-  margin: 0 auto 80px auto;
+  /*height: 60%;*/
+  margin: 0 auto 40px auto;
   font-size: 20px;
 }
 
@@ -43,6 +50,14 @@ section > .params-container {
   width: 80%;
   height: 20%;
   margin: 0 auto;
+  text-align: center;
+}
+
+section > .params-container > .params {
+  width: 20%;
+  height: 100%;
+  margin: 20px;
+  font-size: 20px;
 }
 
 footer {

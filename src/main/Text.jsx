@@ -5,46 +5,49 @@ class Text extends React.Component {
   constructor(props) {
     super(props);
 
-    this.mistakes = this.props.mistakes;
-    this.setMistakes = this.props.setMistakes;
-
     this.state = {
       error: null,
       isLoaded: false,
-      letters: [],
-      current: 0
+      letters: []
     };
+
+    this.startTime = 0;
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.lettersToArray = this.lettersToArray.bind(this);
   }
 
   lettersToArray() {
+    const { setNumOfLetters } = this.props;
+
     const letters = this.state.letters
-      .replace('  ', ' ')
+      .replace(/\s\s/g, ' ')
       .split('')
       .map(item => ({
         value: item,
         className: 'letter'
     }));
 
+    setNumOfLetters(letters.length);
+
     this.setState({letters: letters});
   }
 
   handleKeyUp(event) {
     const { key, repeat } = event;
-    const { letters, current } = this.state;
+    const { letters } = this.state;
+    const { current, setCurrent, mistakes, setMistakes} = this.props;
 
     if (repeat === false && key.length === 1) {
-      let className, inc = 0;
+      let className;
 
       if (key === letters[current].value) {
         className = 'letter_correct';
-        inc++;
+        setCurrent(current + 1);
 
       } else {
         className = 'letter_incorrect';
-        this.setMistakes(++this.mistakes);
+        setMistakes(mistakes + 1);
       }
 
       letters[current] = {
@@ -53,8 +56,7 @@ class Text extends React.Component {
       };
       
       this.setState({
-        letters: letters,
-        current: current + inc
+        letters: letters
       });
     }
   }
@@ -80,6 +82,12 @@ class Text extends React.Component {
       );
 
     document.onkeydown = this.handleKeyUp;
+
+    this.startTime = new Date().getTime();
+
+    setInterval(() => {
+      this.props.setTime(new Date().getTime() - this.startTime);
+    }, 1000)
   }
 
   render() {
