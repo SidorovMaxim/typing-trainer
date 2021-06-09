@@ -9,7 +9,7 @@ header > a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 24px;
+  font-size: 30px;
   text-decoration: none;
 }
 
@@ -24,6 +24,19 @@ section > .text-container {
   width: 80%;
   height: 60%;
   margin: 0 auto 80px auto;
+  font-size: 20px;
+}
+
+section > .text-container > .letter_correct {
+  color: white;
+  background-color: green;
+  transition: 0.1s;
+}
+
+section > .text-container > .letter_incorrect {
+  color: white;
+  background-color: red;
+  transition: 0.1s;
 }
 
 section > .params-container {
