@@ -1,7 +1,14 @@
+body {
+  background-color: #f6f6f7;
+  font-family: 'Comic Sans MS';
+}
+
 header {
   position: relative;
   height: 70px;
-  padding: 0 30%;
+  padding: 0 20vw;
+  background-color: white;
+  box-shadow: 0 0 10px grey;
 }
 
 header > a {
@@ -9,14 +16,25 @@ header > a {
   top: 50%;
   transform: translateY(-50%);
   font-size: 30px;
+  color: black;
   text-decoration: none;
 }
 
+header > a:hover {
+  color: grey;
+  transition: 0.1s;
+}
+
 section {
-  width: 700px;
-  height: 400px;
-  margin: 50px auto;
-  padding: 50px;
+  width: 95vw;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 1vw;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 section > .notice-container {
@@ -27,50 +45,141 @@ section > .notice-container {
 }
 
 section > .button-start {
-  width: 40%;
-  height: 20%;
-  margin: 50px 30%;
+  width: 60%;
+  max-width: 240px;
+  height: 50px;
+  margin: 50px auto;
+  font-family: 'Comic Sans MS';
   font-size: 30px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+section > .button-start:hover {
+  box-shadow: 0 0 10px grey;
+  transition: 0.1s;
 }
 
 section > .text-container {
-  width: 80%;
+  width: 93vw;
+  max-width: calc(798px - 2vw);
+  line-height: 40px;
   /*height: 60%;*/
-  margin: 0 auto 40px auto;
-  font-size: 20px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  margin-top: 40px;
+  padding: 1vw;
+  background-color: white;
+  font-size: 25px;
+  text-align: left;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+section > .text-container > .letter_current {
+  background-color: green;
+  color: white;
+  border: 2px solid green;
+  border-radius: 4px;
 }
 
 section > .text-container > .letter_correct {
-  color: white;
-  background-color: green;
-  transition: 0.1s;
+  color: green;
+  transition: 0.2s;
 }
 
 section > .text-container > .letter_incorrect {
-  color: white;
   background-color: red;
-  transition: 0.1s;
+  color: white;
+  border: 2px solid red;
+  border-radius: 4px;
 }
 
 section > .params-container {
-  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
   height: 20%;
   margin: 0 auto;
   text-align: center;
+  font-size: 20px;
 }
 
 section > .params-container > .params {
-  width: 20%;
-  height: 100%;
-  margin: 20px;
-  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section > .params-container > .params > .params-icon {
+  height: 27px;
+  width: auto;
+}
+
+section > .params-container > .params > .params-name {
+  font-size: 18px;
+}
+
+section > .params-container > .params > .params-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 4rem;
+  margin-top: 5px;
+  background-color: white;
+  font-size: 24px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+section > .params-container > .params > .params-units {
+  font-size: 16px;
 }
 
 footer {
   width: 100%;
   height: 100px;
+}
+
+
+@media (max-width: 700px) {
+  section > .params-container > .params > .params-name {
+    font-size: 15px;
+  }
+
+  section > .params-container > .params > .params-value {
+    height: 3.5rem;
+    width: 3.5rem;
+    font-size: 20px;
+  }
+
+  section > .params-container > .params > .params-units {
+    font-size: 12px;
+  }
+
+  section > .text-container {
+    line-height: 35px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 400px) {
+  section > .params-container > .params > .params-name {
+    font-size: 12px;
+  }
+
+  section > .params-container > .params > .params-value {
+    height: 3rem;
+    width: 3rem;
+    font-size: 18px;
+  }
+
+  section > .params-container > .params > .params-units {
+    font-size: 10px;
+  }
+
+  section > .text-container {
+    line-height: 25px;
+    font-size: 18px;
+  }
 }
