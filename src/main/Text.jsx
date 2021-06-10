@@ -1,5 +1,4 @@
 import React from 'react';
-//import TextSymbol from './TextSymbol.jsx';
 
 class Text extends React.Component {
   constructor(props) {
@@ -11,10 +10,35 @@ class Text extends React.Component {
       letters: []
     };
 
-    this.startTime = 0;
+    this.counterStartTime = 0;
 
-    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.startСounter = this.startСounter.bind(this);
+    this.getLoremIpsum = this.getLoremIpsum.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.lettersToArray = this.lettersToArray.bind(this);
+  }
+
+  // Custom methods
+  getLoremIpsum() {
+    fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=1&format=text')
+      .then(res => res.text())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            letters: result
+          });
+
+          this.lettersToArray();
+          this.startСounter();
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
   }
 
   lettersToArray() {
@@ -33,12 +57,25 @@ class Text extends React.Component {
     this.setState({letters: letters});
   }
 
-  handleKeyUp(event) {
+  startСounter() {
+    this.counterStartTime = new Date().getTime();
+
+    setInterval(() => {
+      this.props.setCounterTime(new Date().getTime() - this.counterStartTime);
+    }, 1000)   
+  }
+
+  handleKeyDown(event) {
     const { key, repeat } = event;
     const { letters } = this.state;
     const { current, setCurrent, mistakes, setMistakes} = this.props;
 
-    if (repeat === false && key.length === 1) {
+    if (
+        letters.length !== 0 &&
+        repeat === false &&
+        key.length === 1
+      ) {
+
       let className;
 
       if (key === letters[current].value) {
@@ -61,35 +98,18 @@ class Text extends React.Component {
     }
   }
 
+  // Default methods
   componentDidMount() {
-    fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=1&format=text')
-      .then(res => res.text())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            letters: result
-          });
+    this.getLoremIpsum();
 
-          this.lettersToArray();
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      );
-
-    document.onkeydown = this.handleKeyUp;
-
-    this.startTime = new Date().getTime();
-
-    setInterval(() => {
-      this.props.setTime(new Date().getTime() - this.startTime);
-    }, 1000)
+    document.addEventListener('keydown', this.handleKeyDown);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  // Render
   render() {
     const { error, isLoaded, letters } = this.state;
 

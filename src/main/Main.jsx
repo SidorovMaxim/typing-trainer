@@ -5,10 +5,10 @@ import Text from './Text.jsx';
 const Main = () => {
 
   // Init state
-  const [onStart, setOnStart] = useState(false);
-  const [time, setTime] = useState(1);
   const [current, setCurrent] = useState(0);
   const [mistakes, setMistakes] = useState(0);
+  const [onStart, setOnStart] = useState(false);
+  const [counterTime, setCounterTime] = useState(1);
   const [numOfLetters, setNumOfLetters] = useState(0);
 
   // Custom methods
@@ -18,19 +18,20 @@ const Main = () => {
 
   // Render
   if (onStart) {
+    const counterTimeSeconds = Math.floor(counterTime / 10e2);    
+    const speed = Math.round(current / (counterTimeSeconds / 60));
     const accuracy = Math.round(10 * (numOfLetters - mistakes) * 100 / numOfLetters) / 10;
-    const speed = Math.round(current / (time / 1000 / 60));
 
     return (
       <section>
         <div className='text-container'>
-          <Text 
+          <Text
             current={current}
-            setCurrent={setCurrent}
             mistakes={mistakes}
+            setCurrent={setCurrent}
             setMistakes={setMistakes}
+            setCounterTime={setCounterTime}
             setNumOfLetters={setNumOfLetters}
-            setTime={setTime}
           />
         </div>
 
@@ -46,11 +47,11 @@ const Main = () => {
           <br />
 
           <span className='params'>
-            Скорость: {speed} зн./мин
+            Скорость: {isNaN(speed) ? 0 : speed} зн./мин
           </span>        
 
           <span className='params'>
-            Время: {Math.floor(time / 1000)} сек
+            Время: {counterTimeSeconds} сек
           </span>   
         </div>
       </section>
@@ -59,6 +60,12 @@ const Main = () => {
   } else {
     return (
       <section>
+        <div className='notice-container'>
+          Печатай как можно быстрее,<br />
+          допуская меньше ошибок,<br /> 
+          чтобы заработать наибольше количество очков.
+        </div>
+
         <button 
           className='button-start' 
           onClick={handleOnStart}>
