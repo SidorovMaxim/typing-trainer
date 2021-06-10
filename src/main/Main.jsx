@@ -1,6 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { TextContext } from '../App.js';
+import React, { useState } from 'react';
 import Text from './Text.jsx';
+import Mistakes from './params/Mistakes.jsx';
+import Accuracy from './params/Accuracy.jsx';
+import Speed from './params/Speed.jsx';
+import Counter from './params/Counter.jsx';
+
 
 const Main = () => {
 
@@ -8,51 +12,46 @@ const Main = () => {
   const [current, setCurrent] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [onStart, setOnStart] = useState(false);
-  const [counterTime, setCounterTime] = useState(1);
+  const [counterTime, setCounterTime] = useState(0);
   const [numOfLetters, setNumOfLetters] = useState(0);
+
+  // Init variables
+  let counterStartTime;
 
   // Custom methods
   const handleOnStart = () => {
     setOnStart(true);
   }
 
+  const startСounter = () => {
+    counterStartTime = new Date().getTime();
+
+    setInterval(() => {
+      setCounterTime(new Date().getTime() - counterStartTime);
+    }, 1000);
+  }
+
   // Render
   if (onStart) {
-    const counterTimeSeconds = Math.floor(counterTime / 10e2);    
-    const speed = Math.round(current / (counterTimeSeconds / 60));
-    const accuracy = Math.round(10 * (numOfLetters - mistakes) * 100 / numOfLetters) / 10;
-
+    //console.log('Main rendered');
     return (
       <section>
+        <div className='params-container'>
+          <Counter counterTime={counterTime} />
+          <Mistakes mistakes={mistakes} />
+          <Accuracy numOfLetters={numOfLetters} mistakes={mistakes} />
+          <Speed counterTime={counterTime} current={current} />
+        </div>
+
         <div className='text-container'>
           <Text
             current={current}
             mistakes={mistakes}
             setCurrent={setCurrent}
             setMistakes={setMistakes}
-            setCounterTime={setCounterTime}
+            startСounter={startСounter}
             setNumOfLetters={setNumOfLetters}
           />
-        </div>
-
-        <div className='params-container'>
-          <span className='params'>
-            Точность: {accuracy} %
-          </span>
-
-          <span className='params'>
-            Ошибок: {mistakes}
-          </span>
-
-          <br />
-
-          <span className='params'>
-            Скорость: {isNaN(speed) ? 0 : speed} зн./мин
-          </span>        
-
-          <span className='params'>
-            Время: {counterTimeSeconds} сек
-          </span>   
         </div>
       </section>
     );
@@ -61,15 +60,15 @@ const Main = () => {
     return (
       <section>
         <div className='notice-container'>
-          Печатай как можно быстрее,<br />
-          допуская меньше ошибок,<br /> 
-          чтобы заработать наибольше количество очков.
+          Type the text as quickly as possible,<br />
+          making fewer mistakes<br /> 
+          to get the most points. 
         </div>
 
         <button 
           className='button-start' 
           onClick={handleOnStart}>
-          Я готов!
+          I'm ready!
         </button>
       </section>
     );
