@@ -10,9 +10,6 @@ class Text extends React.Component {
       letters: []
     };
 
-    this.counterStartTime = 0;
-
-    this.startСounter = this.startСounter.bind(this);
     this.getLoremIpsum = this.getLoremIpsum.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.lettersToArray = this.lettersToArray.bind(this);
@@ -20,7 +17,7 @@ class Text extends React.Component {
 
   // Custom methods
   getLoremIpsum() {
-    fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=1&format=text')
+    fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=4&format=text')
       .then(res => res.text())
       .then(
         (result) => {
@@ -30,7 +27,7 @@ class Text extends React.Component {
           });
 
           this.lettersToArray();
-          this.startСounter();
+          this.props.startСounter();
         },
         (error) => {
           this.setState({
@@ -57,14 +54,6 @@ class Text extends React.Component {
     this.setState({letters: letters});
   }
 
-  startСounter() {
-    this.counterStartTime = new Date().getTime();
-
-    setInterval(() => {
-      this.props.setCounterTime(new Date().getTime() - this.counterStartTime);
-    }, 1000)   
-  }
-
   handleKeyDown(event) {
     const { key, repeat } = event;
     const { letters } = this.state;
@@ -76,25 +65,29 @@ class Text extends React.Component {
         key.length === 1
       ) {
 
-      let className;
-
       if (key === letters[current].value) {
-        className = 'letter_correct';
+        letters[current] = {
+          ...letters[current],
+          className: 'letter_correct'
+        };
+
+        letters[current + 1] = {
+          ...letters[current + 1],
+          className: 'letter_current'
+        };       
+
         setCurrent(current + 1);
 
       } else {
-        className = 'letter_incorrect';
+        letters[current] = {
+          ...letters[current],
+          className: 'letter_incorrect'
+        };
+
         setMistakes(mistakes + 1);
       }
 
-      letters[current] = {
-        ...letters[current],
-        className: className
-      };
-      
-      this.setState({
-        letters: letters
-      });
+      this.setState({letters: letters});
     }
   }
 
@@ -109,12 +102,12 @@ class Text extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  // Render
   render() {
     const { error, isLoaded, letters } = this.state;
+    //console.log('Text rendered');
 
     if (error) {
-      return <div>Ошибка: {error.message}</div>;
+      return <div>Error: {error.message}</div>;
 
     } else if (isLoaded && (typeof letters === 'object')) {
       return (
@@ -126,7 +119,7 @@ class Text extends React.Component {
       );
 
     } else {
-      return <div>Загрузка...</div>;
+      return <div>Loading...</div>;
     }
   }
 };
