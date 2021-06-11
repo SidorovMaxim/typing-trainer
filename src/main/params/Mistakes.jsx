@@ -15,7 +15,7 @@ const Mistakes = (props) => {
       </div>
     </span>
   );
-}
+};
 
 
 export default Mistakes;

@@ -2,7 +2,10 @@ import React from 'react';
 
 
 const Speed = (props) => {
-  const { counterTime, current } = props;
+  const {
+    counterTime,
+    current
+  } = props;
 
   const speed = Math.round(current / (counterTime / 10e2 / 60));
 
@@ -21,7 +24,7 @@ const Speed = (props) => {
       </div>
     </span>
   );
-}
+};
 
 
 export default Speed;

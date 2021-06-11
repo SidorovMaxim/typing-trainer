@@ -116,7 +116,7 @@ section > .params-container > .params > .params-units {
 }
 
 section > .text-container,
-section > .finish-container {
+section > .score-container {
   width: 93vw;
   max-width: calc(798px - 2vw);
   line-height: 40px;
@@ -129,7 +129,7 @@ section > .finish-container {
   border-radius: 8px;
 }
 
-section > .finish-container {
+section > .score-container {
   max-width: 400px;
   margin: 40px auto 0 auto;
   text-align: center;

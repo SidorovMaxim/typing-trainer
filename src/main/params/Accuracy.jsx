@@ -2,7 +2,10 @@ import React from 'react';
 
 
 const Accuracy = (props) => {
-  const { numOfLetters, mistakes } = props;
+  const {
+    numOfLetters,
+    mistakes
+  } = props;
 
   const accuracy = Math.round(10 * (numOfLetters - mistakes) * 100 / numOfLetters) / 10;
 
@@ -21,7 +24,7 @@ const Accuracy = (props) => {
       </div>
     </span>
   );
-}
+};
 
 
 export default Accuracy;
