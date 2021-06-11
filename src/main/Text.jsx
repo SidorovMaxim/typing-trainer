@@ -76,17 +76,35 @@ class Text extends React.Component {
       handleFinish
     } = this.props;
 
-    const checkGameOver = () => {
-      if (current === letters.length - 1) {
-        document.removeEventListener('keydown', this.handleKeyDown);
-        this.setState({ gameOver: true });
-        return handleFinish();
-      }
-    }
-
     if (letters.length !== 0 &&
         repeat === false &&
         key.length === 1) {
+
+      const changeLetterClass = (index, status) => {
+        letters[index] = {
+          ...letters[index],
+          className: `letter_${status}`
+        };
+      }
+
+      const checkGameOver = () => {
+        if (current === letters.length - 1) {
+          document.removeEventListener('keydown', this.handleKeyDown);
+          this.setState({ gameOver: true });
+          return handleFinish();
+        }
+      };
+
+      const changeFinalText = () => {
+        if (previous.value !== current) {
+          setFinalText([
+            ...finalText,
+            letters[current]
+          ]);
+
+          previous.value++;
+        }
+      }
 
       if (key === letters[current].value) {
         changeLetterClass(current, 'correct');
@@ -101,24 +119,6 @@ class Text extends React.Component {
 
       changeFinalText();
       this.setState({ letters: letters });
-    }
-
-    function changeLetterClass(index, status) {
-      letters[index] = {
-        ...letters[index],
-        className: `letter_${status}`
-      };
-    }
-
-    function changeFinalText() {
-      if (previous.value !== current) {
-        setFinalText([
-          ...finalText,
-          letters[current]
-        ]);
-
-        previous.value++;
-      }
     }
   }
 
