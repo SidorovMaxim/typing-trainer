@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Accuracy = (props) => {
   const { numOfLetters, mistakes } = props;
 
@@ -21,5 +22,6 @@ const Accuracy = (props) => {
     </span>
   );
 }
+
 
 export default Accuracy;

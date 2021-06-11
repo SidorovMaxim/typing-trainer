@@ -6,57 +6,100 @@ import Speed from './params/Speed.jsx';
 import Counter from './params/Counter.jsx';
 
 
-const Main = () => {
+let counter;
 
-  // Init state
+
+const Main = () => {
   const [current, setCurrent] = useState(0);
   const [mistakes, setMistakes] = useState(0);
-  const [onStart, setOnStart] = useState(false);
+  const [finalText, setFinalText] = useState([]);
   const [counterTime, setCounterTime] = useState(0);
   const [numOfLetters, setNumOfLetters] = useState(0);
+  const [appState, setAppState] = useState('preparation');
 
-  // Init variables
-  let counterStartTime;
 
-  // Custom methods
-  const handleOnStart = () => {
-    setOnStart(true);
-  }
+  const handleStart = () => {
+    setAppState('start');
+  };
+
+  const handleFinish = () => {
+    clearInterval(counter);
+    setAppState('finish');
+  };
 
   const startСounter = () => {
-    counterStartTime = new Date().getTime();
+    const counterStartTime = new Date().getTime();
 
-    setInterval(() => {
+    counter = setInterval(() => {
       setCounterTime(new Date().getTime() - counterStartTime);
     }, 1000);
-  }
+  };
 
-  // Render
-  if (onStart) {
-    //console.log('Main rendered');
+
+  const paramsContainer = (
+    <div className='params-container'>
+      <Counter counterTime={counterTime} />
+      <Mistakes mistakes={mistakes} />
+      <Accuracy numOfLetters={numOfLetters} mistakes={mistakes} />
+      <Speed counterTime={counterTime} current={current} />
+    </div>
+  );
+  
+  const textContainer = (
+    <div className='text-container'>
+      <Text
+        current={current}
+        mistakes={mistakes}
+        finalText={finalText}
+        setCurrent={setCurrent}
+        setMistakes={setMistakes}
+        startСounter={startСounter}
+        setFinalText={setFinalText}
+        handleFinish={handleFinish}
+        setNumOfLetters={setNumOfLetters}
+      />
+    </div>
+  );
+
+  const buttonRestart = (
+    <a className='button-restart' href='/'>
+      Restart
+    </a>
+  );
+
+  const finishContainer = (
+    <div className='finish-container'>
+      <div className='result-text'>
+        Good job!
+      </div>
+
+      <div className='score-text'>
+        Your score: 777
+      </div>
+    </div>
+  );
+
+
+  if (appState === 'start') {
     return (
       <section>
-        <div className='params-container'>
-          <Counter counterTime={counterTime} />
-          <Mistakes mistakes={mistakes} />
-          <Accuracy numOfLetters={numOfLetters} mistakes={mistakes} />
-          <Speed counterTime={counterTime} current={current} />
-        </div>
-
-        <div className='text-container'>
-          <Text
-            current={current}
-            mistakes={mistakes}
-            setCurrent={setCurrent}
-            setMistakes={setMistakes}
-            startСounter={startСounter}
-            setNumOfLetters={setNumOfLetters}
-          />
-        </div>
+        {paramsContainer}
+        {textContainer}
+        {buttonRestart}
       </section>
     );
 
-  } else {
+  } else if (appState === 'finish') {
+    return (
+      <section>
+        {paramsContainer}
+        {textContainer}
+        {finishContainer}
+        {buttonRestart}
+      </section>
+    );
+
+  } else if (appState === 'preparation') {
     return (
       <section>
         <div className='notice-container'>
@@ -65,14 +108,16 @@ const Main = () => {
           to get the most points. 
         </div>
 
-        <button 
+        <button
           className='button-start' 
-          onClick={handleOnStart}>
+          onClick={handleStart}
+        >
           I'm ready!
         </button>
       </section>
     );
   }
 };
+
 
 export default Main;

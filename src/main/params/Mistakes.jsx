@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Mistakes = (props) => {
   const { mistakes } = props;
 
@@ -15,5 +16,6 @@ const Mistakes = (props) => {
     </span>
   );
 }
+
 
 export default Mistakes;
