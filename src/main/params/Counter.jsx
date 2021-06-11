@@ -21,7 +21,7 @@ const Counter = (props) => {
       </div>
     </span>
   );
-}
+};
 
 
 export default Counter;

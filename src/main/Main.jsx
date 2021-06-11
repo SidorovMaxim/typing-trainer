@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import Text from './Text.jsx';
-import Mistakes from './params/Mistakes.jsx';
-import Accuracy from './params/Accuracy.jsx';
-import Speed from './params/Speed.jsx';
-import Counter from './params/Counter.jsx';
+import React, { useState, useEffect } from 'react';
+import { ButtonStart, ButtonRestart } from './Buttons.jsx';
+import { NoticeContainer, ParamsContainer, TextContainer, ScoreContainer } from './Containers.jsx';
 
 
 let counter;
 
 
 const Main = () => {
+
+  // State
   const [current, setCurrent] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [finalText, setFinalText] = useState([]);
@@ -17,8 +16,13 @@ const Main = () => {
   const [numOfLetters, setNumOfLetters] = useState(0);
   const [appState, setAppState] = useState('preparation');
 
+  // Custom methods
+  const handleEnter = (event) => {
+    if (event.key === 'Enter') handleStart();
+  }
 
   const handleStart = () => {
+    document.removeEventListener('keydown', handleEnter);
     setAppState('start');
   };
 
@@ -35,57 +39,51 @@ const Main = () => {
     }, 1000);
   };
 
+  // Default methods
+  useEffect(() => {
+    document.addEventListener('keydown', handleEnter);
+  }, []); // eslint-disable-line
 
+
+  // Render
   const paramsContainer = (
-    <div className='params-container'>
-      <Counter counterTime={counterTime} />
-      <Mistakes mistakes={mistakes} />
-      <Accuracy numOfLetters={numOfLetters} mistakes={mistakes} />
-      <Speed counterTime={counterTime} current={current} />
-    </div>
+    <ParamsContainer
+      current={current}
+      mistakes={mistakes}
+      counterTime={counterTime}
+      numOfLetters={numOfLetters}
+    />  
   );
-  
+
   const textContainer = (
-    <div className='text-container'>
-      <Text
-        current={current}
-        mistakes={mistakes}
-        finalText={finalText}
-        setCurrent={setCurrent}
-        setMistakes={setMistakes}
-        startСounter={startСounter}
-        setFinalText={setFinalText}
-        handleFinish={handleFinish}
-        setNumOfLetters={setNumOfLetters}
-      />
-    </div>
+    <TextContainer
+      current={current}
+      mistakes={mistakes}
+      finalText={finalText}
+      setCurrent={setCurrent}
+      setMistakes={setMistakes}
+      startСounter={startСounter}
+      setFinalText={setFinalText}
+      handleFinish={handleFinish}
+      setNumOfLetters={setNumOfLetters}
+    />  
   );
 
-  const buttonRestart = (
-    <a className='button-restart' href='/'>
-      Restart
-    </a>
+  const scoreContainer = (
+    <ScoreContainer
+      current={current}
+      mistakes={mistakes}
+      counterTime={counterTime}
+      numOfLetters={numOfLetters}
+    />
   );
-
-  const finishContainer = (
-    <div className='finish-container'>
-      <div className='result-text'>
-        Good job!
-      </div>
-
-      <div className='score-text'>
-        Your score: 777
-      </div>
-    </div>
-  );
-
 
   if (appState === 'start') {
     return (
       <section>
         {paramsContainer}
         {textContainer}
-        {buttonRestart}
+        <ButtonRestart />
       </section>
     );
 
@@ -94,26 +92,16 @@ const Main = () => {
       <section>
         {paramsContainer}
         {textContainer}
-        {finishContainer}
-        {buttonRestart}
+        {scoreContainer}
+        <ButtonRestart />
       </section>
     );
 
   } else if (appState === 'preparation') {
     return (
       <section>
-        <div className='notice-container'>
-          Type the text as quickly as possible,<br />
-          making fewer mistakes<br /> 
-          to get the most points. 
-        </div>
-
-        <button
-          className='button-start' 
-          onClick={handleStart}
-        >
-          I'm ready!
-        </button>
+        <NoticeContainer />
+        <ButtonStart handleStart={handleStart} />
       </section>
     );
   }

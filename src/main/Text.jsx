@@ -126,7 +126,6 @@ class Text extends React.Component {
   // Default methods
   componentDidMount() {
     this.getLoremIpsum();
-
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
