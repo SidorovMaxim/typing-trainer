@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Counter = (props) => {
   const { counterTime } = props;
 
@@ -21,5 +22,6 @@ const Counter = (props) => {
     </span>
   );
 }
+
 
 export default Counter;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Speed = (props) => {
   const { counterTime, current } = props;
 
@@ -21,5 +22,6 @@ const Speed = (props) => {
     </span>
   );
 }
+
 
 export default Speed;
