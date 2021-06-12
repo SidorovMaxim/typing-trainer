@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../App.js';
 
 
-export const Counter = (props) => {
+export const Counter = () => {
   const { counterTime } = useContext(AppContext);
 
   const counterTimeSeconds = Math.round(counterTime / 10e2);
@@ -25,7 +25,7 @@ export const Counter = (props) => {
 };
 
 
-export const Mistakes = (props) => {
+export const Mistakes = () => {
   const { mistakes } = useContext(AppContext);
 
   return (
@@ -42,10 +42,10 @@ export const Mistakes = (props) => {
 };
 
 
-export const Accuracy = (props) => {
+export const Accuracy = () => {
   const {
-    numOfChars,
-    mistakes
+    mistakes,
+    numOfChars
   } = useContext(AppContext);
 
   const accuracy = Math.round(10 * (numOfChars - mistakes) * 100 / numOfChars) / 10;
@@ -75,10 +75,10 @@ export const Accuracy = (props) => {
 };
 
 
-export const Speed = (props) => {
+export const Speed = () => {
   const {
-    counterTime,
-    current
+    current,
+    counterTime
   } = useContext(AppContext);
 
   const speed = Math.round(current / (counterTime / 10e2 / 60));
@@ -104,5 +104,28 @@ export const Speed = (props) => {
         chars/min
       </div>
     </span>
+  );
+};
+
+
+export const Score = () => {
+  const {
+    current,
+    mistakes,
+    numOfChars,
+    counterTime
+  } = useContext(AppContext);
+
+  const score = Math.round(
+    current /
+    (counterTime / 10e2 / 60) *
+    (numOfChars - mistakes) /
+    numOfChars
+  );
+
+  return (
+    <div className="score">
+      Your score: {score}
+    </div>
   );
 };

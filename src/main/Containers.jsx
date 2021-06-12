@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../App.js';
 import Text from './Text.jsx';
-import { Speed, Counter, Mistakes, Accuracy } from './Params.jsx';
+import { Counter, Mistakes, Accuracy, Speed, Score } from './Params.jsx';
 
 
 export const NoticeContainer = () => {
@@ -71,19 +71,7 @@ export const TextContainer = (props) => {
 
 
 export const ScoreContainer = () => {
-  const {
-    current,
-    mistakes,
-    counterTime,
-    numOfChars
-  } = useContext(AppContext);
 
-  const score = Math.round(
-    current /
-    (counterTime / 10e2 / 60) *
-    (numOfChars - mistakes) /
-    numOfChars
-  );
 
   return (
     <div className="score-container">
@@ -91,9 +79,7 @@ export const ScoreContainer = () => {
         Good job!
       </div>
 
-      <div className="score">
-        Your score: {score}
-      </div>
+      <Score />
     </div>
   );
 };

@@ -178,6 +178,7 @@ section > .score-container {
   max-width: 400px;
   margin: 3vh auto 0 auto;
   text-align: center;
+  animation: scoreContainerDisplay 2s linear;
 }
 
 footer {
@@ -285,4 +286,13 @@ footer {
   0% {opacity: 0;}
   50% {opacity: 1;}
   100% {opacity: 0;}
+}
+
+@-webkit-keyframes scoreContainerDisplay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+@keyframes scoreContainerDisplay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }

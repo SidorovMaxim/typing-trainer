@@ -5,7 +5,7 @@ class Text extends React.Component {
 
   // Static methods
   getLoremIpsum() {
-    fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=3&format=text')
+    fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=1&format=text')
       .then(res => res.text())
       .then(
         (result) => {
