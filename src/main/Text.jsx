@@ -2,27 +2,8 @@ import React from 'react';
 
 
 class Text extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      error: null,
-      isLoaded: false,
-      gameOver: false,
-      chars: []
-    };
-
-    this.previous = {
-      charNum: -1
-    }
-
-    this.getLoremIpsum = this.getLoremIpsum.bind(this);
-    this.charsToArray = this.charsToArray.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-
-  // Custom methods
+  // Static methods
   getLoremIpsum() {
     fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=3&format=text')
       .then(res => res.text())
@@ -63,6 +44,40 @@ class Text extends React.Component {
     startСounter();
   }
 
+
+  // Constructor
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: null,
+      isLoaded: false,
+      gameOver: false,
+      chars: []
+    };
+
+    this.previous = {
+      charNum: -1
+    }
+
+    this.getLoremIpsum = this.getLoremIpsum.bind(this);
+    this.charsToArray = this.charsToArray.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+
+  // Default methods
+  componentDidMount() {
+    const fakeInput = document.querySelector('.fake-input');
+
+    this.getLoremIpsum();
+
+    fakeInput.focus();
+    fakeInput.addEventListener('input', this.handleInputChange);
+  }
+
+
+  // Event handlers
   handleInputChange() {
     const { previous } = this;
 
@@ -80,8 +95,11 @@ class Text extends React.Component {
 
     const fakeInput = document.querySelector('.fake-input');
     
-    if (chars.length !== 0 &&
-        fakeInput.value.length === 2) {
+    if (
+      chars.length !== 0 &&
+      fakeInput.value.length === 2
+    ) {
+
       const changeCharClass = (index, status) => {
         chars[index] = {
           ...chars[index],
@@ -131,20 +149,8 @@ class Text extends React.Component {
   }
 
 
-  // Default methods
-  componentDidMount() {
-    const fakeInput = document.querySelector('.fake-input');
-
-    this.getLoremIpsum();
-
-    fakeInput.focus();
-    fakeInput.addEventListener('input', this.handleInputChange);
-  }
-
-
   // Render
   render() {
-    console.log('Text rendered');
     const { finalText } = this.props;
 
     const {
@@ -160,7 +166,7 @@ class Text extends React.Component {
     } else if (gameOver) {
       return (
         finalText.map((item, j) => (
-          <span className={item.className} key={'symbol' + j}>
+          <span className={item.className} key={"char_" + j}>
             {item.value}
           </span>
         ))        
@@ -170,7 +176,7 @@ class Text extends React.Component {
 
       return (
         chars.map((item, j) => (
-          <span className={item.className} key={'symbol' + j}>
+          <span className={item.className} key={"char_" + j}>
             {item.value}
           </span>
         ))

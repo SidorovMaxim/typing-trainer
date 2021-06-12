@@ -6,12 +6,12 @@ import { Speed, Counter, Mistakes, Accuracy } from './Params.jsx';
 
 export const NoticeContainer = () => {
   return (
-    <div className='notice-container'>
+    <div className="notice-container">
       Type as quickly as possible,<br />
       making fewer mistakes,<br />
       to get a better score.
 
-      <div className='prompt'>
+      <div className="prompt">
         Press "Enter" to start
       </div>
     </div>
@@ -21,7 +21,7 @@ export const NoticeContainer = () => {
 
 export const ParamsContainer = () => {
   return (
-    <div className='params-container'>
+    <div className="params-container">
       <Counter />
       <Mistakes />
       <Accuracy />
@@ -48,10 +48,10 @@ export const TextContainer = (props) => {
   } = useContext(AppContext);
 
   return (
-    <div className='text-container'>
+    <div className="text-container">
       <input
-        className='fake-input'
-        type='text'
+        className="fake-input"
+        type="text"
         defaultValue='_' // Trick to disable first capital letter when using virtual keyboard
       />
       <Text
@@ -86,12 +86,12 @@ export const ScoreContainer = () => {
   );
 
   return (
-    <div className='score-container'>
-      <div className='result'>
+    <div className="score-container">
+      <div className="result">
         Good job!
       </div>
 
-      <div className='score'>
+      <div className="score">
         Your score: {score}
       </div>
     </div>

@@ -6,18 +6,18 @@ export const ButtonStart = (props) => {
 
   return (
     <button
-      className='button-start' 
+      className="button-start"
       onClick={handleStart}
     >
       I'm ready!
-    </button>      
+    </button>
   );
 };
 
 
 export const ButtonRestart = () => {
   return (
-    <a className='button-restart' href='/'>
+    <a className="button-restart" href="/">
       Restart
     </a>
   );

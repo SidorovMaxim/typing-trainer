@@ -18,6 +18,15 @@ const Main = () => {
 
 
   // Custom methods
+  const startСounter = () => {
+    const counterStartTime = new Date().getTime();
+
+    counter = setInterval(() => {
+      setCounterTime(new Date().getTime() - counterStartTime);
+    }, 1000);
+  };
+
+  // Event handlers
   const handleEnter = (event) => {
     if (event.key === 'Enter') handleStart();
   }
@@ -32,19 +41,10 @@ const Main = () => {
     setAppState('finish');
   };
 
-  const startСounter = () => {
-    const counterStartTime = new Date().getTime();
-
-    counter = setInterval(() => {
-      setCounterTime(new Date().getTime() - counterStartTime);
-    }, 1000);
-  };
-
   // Default methods
   useEffect(() => {
     document.addEventListener('keydown', handleEnter);
   }, []); // eslint-disable-line
-
 
 
   // Render
