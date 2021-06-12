@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../App.js';
 
 
 const Accuracy = (props) => {
   const {
     numOfChars,
     mistakes
-  } = props;
+  } = useContext(AppContext);
 
   const accuracy = Math.round(10 * (numOfChars - mistakes) * 100 / numOfChars) / 10;
 

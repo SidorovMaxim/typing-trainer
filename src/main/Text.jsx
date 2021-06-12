@@ -21,7 +21,6 @@ class Text extends React.Component {
     this.charsToArray = this.charsToArray.bind(this);
   }
 
-
   // Custom methods
   getLoremIpsum() {
     fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=3&format=text')
@@ -65,7 +64,9 @@ class Text extends React.Component {
 
   handleInputChange() {
     const { previous } = this;
+
     const { chars } = this.state;
+    
     const {
       current,
       mistakes,
@@ -141,6 +142,7 @@ class Text extends React.Component {
 
 
   render() {
+    console.log('Text rendered');
     const { finalText } = this.props;
 
     const {

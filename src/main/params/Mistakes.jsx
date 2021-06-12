@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../App.js';
 
 
 const Mistakes = (props) => {
-  const { mistakes } = props;
+  const { mistakes } = useContext(AppContext);
 
   return (
     <span className='params'>

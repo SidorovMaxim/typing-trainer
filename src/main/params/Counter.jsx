@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../App.js';
 
 
 const Counter = (props) => {
-  const { counterTime } = props;
+  const { counterTime } = useContext(AppContext);
 
   const counterTimeSeconds = Math.round(counterTime / 10e2);
 

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../App.js';
 
 
 const Speed = (props) => {
   const {
     counterTime,
     current
-  } = props;
+  } = useContext(AppContext);
 
   const speed = Math.round(current / (counterTime / 10e2 / 60));
 

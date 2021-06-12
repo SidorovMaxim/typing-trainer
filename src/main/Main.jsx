@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../App.js';
 import { ButtonStart, ButtonRestart } from './Buttons.jsx';
 import { NoticeContainer, ParamsContainer, TextContainer, ScoreContainer } from './Containers.jsx';
 
@@ -8,12 +9,10 @@ let counter;
 
 const Main = () => {
 
-  // State
-  const [current, setCurrent] = useState(0);
-  const [mistakes, setMistakes] = useState(0);
-  const [finalText, setFinalText] = useState([]);
-  const [counterTime, setCounterTime] = useState(0);
-  const [numOfChars, setNumOfChars] = useState(0);
+  // Init context
+  const { setCounterTime } = useContext(AppContext);
+
+  // Init state
   const [appState, setAppState] = useState('preparation');
 
   // Custom methods
@@ -46,42 +45,19 @@ const Main = () => {
 
 
   // Render
-  const paramsContainer = (
-    <ParamsContainer
-      current={current}
-      mistakes={mistakes}
-      counterTime={counterTime}
-      numOfChars={numOfChars}
-    />  
-  );
+  console.log('Main rendered');
 
   const textContainer = (
     <TextContainer
-      current={current}
-      mistakes={mistakes}
-      finalText={finalText}
-      setCurrent={setCurrent}
-      setMistakes={setMistakes}
       startСounter={startСounter}
-      setFinalText={setFinalText}
       handleFinish={handleFinish}
-      setNumOfChars={setNumOfChars}
-    />  
-  );
-
-  const scoreContainer = (
-    <ScoreContainer
-      current={current}
-      mistakes={mistakes}
-      counterTime={counterTime}
-      numOfChars={numOfChars}
     />
   );
 
   if (appState === 'start') {
     return (
       <section>
-        {paramsContainer}
+        <ParamsContainer />
         {textContainer}
         <ButtonRestart />
       </section>
@@ -90,9 +66,9 @@ const Main = () => {
   } else if (appState === 'finish') {
     return (
       <section>
-        {paramsContainer}
+        <ParamsContainer />
         {textContainer}
-        {scoreContainer}
+        <ScoreContainer />
         <ButtonRestart />
       </section>
     );
