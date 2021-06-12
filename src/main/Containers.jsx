@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../App.js';
 import Text from './Text.jsx';
-import Speed from './params/Speed.jsx';
-import Counter from './params/Counter.jsx';
-import Mistakes from './params/Mistakes.jsx';
-import Accuracy from './params/Accuracy.jsx';
+import { Speed, Counter, Mistakes, Accuracy } from './Params.jsx';
 
 
 export const NoticeContainer = () => {

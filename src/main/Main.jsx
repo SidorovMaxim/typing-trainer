@@ -12,8 +12,10 @@ const Main = () => {
   // Init context
   const { setCounterTime } = useContext(AppContext);
 
+
   // Init state
   const [appState, setAppState] = useState('preparation');
+
 
   // Custom methods
   const handleEnter = (event) => {
@@ -44,9 +46,8 @@ const Main = () => {
   }, []); // eslint-disable-line
 
 
-  // Render
-  console.log('Main rendered');
 
+  // Render
   const textContainer = (
     <TextContainer
       startСounter={startСounter}

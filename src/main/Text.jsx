@@ -17,9 +17,10 @@ class Text extends React.Component {
     }
 
     this.getLoremIpsum = this.getLoremIpsum.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.charsToArray = this.charsToArray.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
+
 
   // Custom methods
   getLoremIpsum() {
@@ -66,7 +67,7 @@ class Text extends React.Component {
     const { previous } = this;
 
     const { chars } = this.state;
-    
+
     const {
       current,
       mistakes,
@@ -126,7 +127,7 @@ class Text extends React.Component {
     }
 
     // Reset entered char
-    fakeInput.value = '_';
+    fakeInput.value = '_'; // Trick to disable first capital letter when using virtual keyboard
   }
 
 
@@ -141,6 +142,7 @@ class Text extends React.Component {
   }
 
 
+  // Render
   render() {
     console.log('Text rendered');
     const { finalText } = this.props;
