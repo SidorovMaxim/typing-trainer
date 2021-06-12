@@ -9,9 +9,9 @@ import Accuracy from './params/Accuracy.jsx';
 export const NoticeContainer = () => {
   return (
     <div className='notice-container'>
-      Type the text as quickly as possible,<br />
-      making fewer mistakes<br /> 
-      to get the most points. 
+      Type as quickly as possible,<br />
+      making fewer mistakes,<br />
+      to get a better score.
     </div>
   );
 };
@@ -22,14 +22,14 @@ export const ParamsContainer = (props) => {
     current,
     mistakes,
     counterTime,
-    numOfLetters
+    numOfChars
   } = props;
 
   return (
     <div className='params-container'>
       <Counter counterTime={counterTime} />
       <Mistakes mistakes={mistakes} />
-      <Accuracy numOfLetters={numOfLetters} mistakes={mistakes} />
+      <Accuracy numOfChars={numOfChars} mistakes={mistakes} />
       <Speed counterTime={counterTime} current={current} />
     </div>  
   );
@@ -46,11 +46,16 @@ export const TextContainer = (props) => {
     startСounter,
     setFinalText,
     handleFinish,
-    setNumOfLetters
+    setNumOfChars
   } = props;
 
   return (
     <div className='text-container'>
+      <input
+        className='fake-input'
+        type='text'
+        defaultValue='_' // Trick to disable first capital letter when using virtual keyboard
+      />
       <Text
         current={current}
         mistakes={mistakes}
@@ -60,7 +65,7 @@ export const TextContainer = (props) => {
         startСounter={startСounter}
         setFinalText={setFinalText}
         handleFinish={handleFinish}
-        setNumOfLetters={setNumOfLetters}
+        setNumOfChars={setNumOfChars}
       />
     </div>
   );
@@ -72,14 +77,14 @@ export const ScoreContainer = (props) => {
     current,
     mistakes,
     counterTime,
-    numOfLetters
+    numOfChars
   } = props;
 
   const score = Math.round(
     current /
     (counterTime / 10e2 / 60) *
-    (numOfLetters - mistakes) /
-    numOfLetters
+    (numOfChars - mistakes) /
+    numOfChars
   );
 
   return (

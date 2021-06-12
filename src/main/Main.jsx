@@ -13,7 +13,7 @@ const Main = () => {
   const [mistakes, setMistakes] = useState(0);
   const [finalText, setFinalText] = useState([]);
   const [counterTime, setCounterTime] = useState(0);
-  const [numOfLetters, setNumOfLetters] = useState(0);
+  const [numOfChars, setNumOfChars] = useState(0);
   const [appState, setAppState] = useState('preparation');
 
   // Custom methods
@@ -51,7 +51,7 @@ const Main = () => {
       current={current}
       mistakes={mistakes}
       counterTime={counterTime}
-      numOfLetters={numOfLetters}
+      numOfChars={numOfChars}
     />  
   );
 
@@ -65,7 +65,7 @@ const Main = () => {
       startСounter={startСounter}
       setFinalText={setFinalText}
       handleFinish={handleFinish}
-      setNumOfLetters={setNumOfLetters}
+      setNumOfChars={setNumOfChars}
     />  
   );
 
@@ -74,7 +74,7 @@ const Main = () => {
       current={current}
       mistakes={mistakes}
       counterTime={counterTime}
-      numOfLetters={numOfLetters}
+      numOfChars={numOfChars}
     />
   );
 

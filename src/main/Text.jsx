@@ -5,20 +5,20 @@ class Text extends React.Component {
   constructor(props) {
     super(props);
 
-    this.previous = {
-      value: -1
-    }
-
     this.state = {
       error: null,
       isLoaded: false,
       gameOver: false,
-      letters: []
+      chars: []
     };
 
+    this.previous = {
+      charNum: -1
+    }
+
     this.getLoremIpsum = this.getLoremIpsum.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.lettersToArray = this.lettersToArray.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.charsToArray = this.charsToArray.bind(this);
   }
 
 
@@ -30,10 +30,10 @@ class Text extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            letters: result
+            chars: result
           });
 
-          this.lettersToArray();
+          this.charsToArray();
         },
         (error) => {
           this.setState({
@@ -44,28 +44,28 @@ class Text extends React.Component {
       );
   }
 
-  lettersToArray() {
-    const { setNumOfLetters, startСounter } = this.props;
+  charsToArray() {
+    const { setNumOfChars, startСounter } = this.props;
 
-    const letters = this.state.letters
+    const chars = this.state.chars
       .replace(/\s\s/g, ' ')
       .split('')
       .map((item, j) => ({
         value: item,
-        className: 'letter'
+        className: 'char'
       }));
 
-    letters[0].className = 'letter_current';
+    chars[0].className = 'char_current';
 
-    setNumOfLetters(letters.length);
-    this.setState({ letters: letters });
+    setNumOfChars(chars.length);
+    this.setState({ chars: chars });
+
     startСounter();
   }
 
-  handleKeyDown(event) {
+  handleInputChange() {
     const { previous } = this;
-    const { key, repeat } = event;
-    const { letters } = this.state;
+    const { chars } = this.state;
     const {
       current,
       mistakes,
@@ -76,57 +76,66 @@ class Text extends React.Component {
       handleFinish
     } = this.props;
 
-    if (letters.length !== 0 &&
-        repeat === false &&
-        key.length === 1) {
-
-      const changeLetterClass = (index, status) => {
-        letters[index] = {
-          ...letters[index],
-          className: `letter_${status}`
+    const fakeInput = document.querySelector('.fake-input');
+    
+    if (chars.length !== 0) {
+      const changeCharClass = (index, status) => {
+        chars[index] = {
+          ...chars[index],
+          className: `char_${status}`
         };
-      }
+      };
 
       const checkGameOver = () => {
-        if (current === letters.length - 1) {
-          document.removeEventListener('keydown', this.handleKeyDown);
+        if (current === chars.length - 1) {
           this.setState({ gameOver: true });
+
+          fakeInput.removeEventListener('input', this.handleInputChange);
+          fakeInput.blur();
+
           return handleFinish();
         }
       };
 
       const changeFinalText = () => {
-        if (previous.value !== current) {
+        if (previous.charNum !== current) {
           setFinalText([
             ...finalText,
-            letters[current]
+            chars[current]
           ]);
 
-          previous.value++;
+          previous.charNum++;
         }
-      }
+      };
 
-      if (key === letters[current].value) {
-        changeLetterClass(current, 'correct');
+      if (chars[current].value === fakeInput.value[1]) {
+        changeCharClass(current, 'correct');
         checkGameOver();
-        changeLetterClass(current + 1, 'current');
+        changeCharClass(current + 1, 'current');
         setCurrent(current + 1);
 
       } else {
-        changeLetterClass(current, 'incorrect');
+        changeCharClass(current, 'incorrect');
         setMistakes(mistakes + 1);
       }
 
       changeFinalText();
-      this.setState({ letters: letters });
+      this.setState({ chars: chars });
     }
+
+    // Reset entered char
+    fakeInput.value = '_';
   }
 
 
   // Default methods
   componentDidMount() {
+    const fakeInput = document.querySelector('.fake-input');
+
     this.getLoremIpsum();
-    document.addEventListener('keydown', this.handleKeyDown);
+
+    fakeInput.focus();
+    fakeInput.addEventListener('input', this.handleInputChange);
   }
 
 
@@ -137,7 +146,7 @@ class Text extends React.Component {
       error,
       isLoaded,
       gameOver,
-      letters
+      chars
     } = this.state;
 
     if (error) {
@@ -152,9 +161,10 @@ class Text extends React.Component {
         ))        
       );
 
-    } else if (isLoaded && (typeof letters === 'object')) {
+    } else if (isLoaded && (typeof chars === 'object')) {
+
       return (
-        letters.map((item, j) => (
+        chars.map((item, j) => (
           <span className={item.className} key={'symbol' + j}>
             {item.value}
           </span>

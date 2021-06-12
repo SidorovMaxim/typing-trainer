@@ -3,11 +3,11 @@ import React from 'react';
 
 const Accuracy = (props) => {
   const {
-    numOfLetters,
+    numOfChars,
     mistakes
   } = props;
 
-  const accuracy = Math.round(10 * (numOfLetters - mistakes) * 100 / numOfLetters) / 10;
+  const accuracy = Math.round(10 * (numOfChars - mistakes) * 100 / numOfChars) / 10;
 
   return (
     <span className='params'>
