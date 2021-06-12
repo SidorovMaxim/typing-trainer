@@ -96,7 +96,7 @@ export const Speed = () => {
         Speed:
       </div>
 
-      <div className="params-value"style={{color: colorStyle}}>
+      <div className="params-value" style={{color: colorStyle}}>
         {isNaN(speed) ? 0 : speed}
       </div>
 

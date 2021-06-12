@@ -71,8 +71,6 @@ export const TextContainer = (props) => {
 
 
 export const ScoreContainer = () => {
-
-
   return (
     <div className="score-container">
       <div className="result">
