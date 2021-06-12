@@ -18,6 +18,7 @@ header > a {
   font-size: 30px;
   color: black;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 header > a:hover {
@@ -45,8 +46,7 @@ section > .notice-container {
 }
 
 section > .button-start,
-section > .button-restart,
-section > .button-show-text {
+section > .button-restart {
   width: 60%;
   max-width: 240px;
   height: 50px;
@@ -63,11 +63,11 @@ section >  .button-restart {
   line-height: 50px;
   color: black;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 section > .button-start:hover,
-section > .button-restart:hover,
-section > .button-show-text:hover {
+section > .button-restart:hover {
   box-shadow: 0 0 10px grey;
   cursor: pointer;
   transition: 0.1s;
@@ -130,10 +130,10 @@ section > .score-container {
 }
 
 section > .score-container {
+  width: 73vw;  
   max-width: 400px;
   margin: 40px auto 0 auto;
   text-align: center;
-
 }
 
 section > .text-container > .letter_current {
@@ -162,6 +162,10 @@ footer {
 
 
 @media (max-width: 700px) {
+  header {
+    padding: 0 20px;
+  }
+
   section > .params-container > .params > .params-name {
     font-size: 15px;
   }
@@ -176,13 +180,25 @@ footer {
     font-size: 12px;
   }
 
-  section > .text-container {
+  section > .notice-container,
+  section > .text-container,
+  section > .score-container {
     line-height: 35px;
     font-size: 22px;
   }
+
+  section > .button-start,
+  section > .button-restart {
+    font-size: 26px;
+  }
 }
 
-@media (max-width: 400px) {
+
+@media (max-width: 420px) {
+  header {
+    padding: 0 20px;
+  }
+
   section > .params-container > .params > .params-name {
     font-size: 12px;
   }
@@ -197,8 +213,16 @@ footer {
     font-size: 10px;
   }
 
-  section > .text-container {
+  section > .notice-container,
+  section > .text-container,
+  section > .score-container {
     line-height: 25px;
     font-size: 18px;
   }
+
+  section > .button-start,
+  section > .button-restart {
+    font-size: 22px;
+  }
 }
+
