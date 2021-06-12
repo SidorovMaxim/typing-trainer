@@ -12,6 +12,10 @@ export const NoticeContainer = () => {
       Type as quickly as possible,<br />
       making fewer mistakes,<br />
       to get a better score.
+
+      <div className='prompt'>
+        Press "Enter" to start
+      </div>
     </div>
   );
 };

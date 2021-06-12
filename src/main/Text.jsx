@@ -24,7 +24,7 @@ class Text extends React.Component {
 
   // Custom methods
   getLoremIpsum() {
-    fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=1&format=text')
+    fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=3&format=text')
       .then(res => res.text())
       .then(
         (result) => {
@@ -78,7 +78,8 @@ class Text extends React.Component {
 
     const fakeInput = document.querySelector('.fake-input');
     
-    if (chars.length !== 0) {
+    if (chars.length !== 0 &&
+        fakeInput.value.length === 2) {
       const changeCharClass = (index, status) => {
         chars[index] = {
           ...chars[index],

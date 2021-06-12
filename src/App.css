@@ -45,6 +45,13 @@ section > .notice-container {
   text-align: center;
 }
 
+section > .notice-container > .prompt {
+  margin-top: 30px;
+  margin-bottom: -20px ;
+  font-size: 16px;
+  animation: promptBlink infinite 1.5s linear;
+}
+
 section > .button-start,
 section > .button-restart {
   width: 60%;
@@ -179,10 +186,14 @@ footer {
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   header {
     padding: 0 20px;
     font-size: 26px;
+  }
+
+  section > .notice-container > .prompt {
+    display: none;
   }
 
   section > .params-container > .params > .params-name {
@@ -264,3 +275,14 @@ footer {
   }
 }
 
+
+@-webkit-keyframes promptBlink {
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}
+@keyframes promptBlink {
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}
