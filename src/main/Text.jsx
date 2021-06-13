@@ -160,27 +160,24 @@ class Text extends React.Component {
       chars
     } = this.state;
 
-    if (error) {
-      return <div>Error: {error.message}</div>;
-
-    } else if (gameOver) {
+    const textMapping = (text) => {
       return (
-        finalText.map((item, j) => (
+        text.map((item, j) => (
           <span className={item.className} key={"char_" + j}>
             {item.value}
           </span>
         ))        
       );
+    }
+
+    if (error) {
+      return <div>Error: {error.message}</div>;
+
+    } else if (gameOver) {
+      return textMapping(finalText);
 
     } else if (isLoaded && (typeof chars === 'object')) {
-
-      return (
-        chars.map((item, j) => (
-          <span className={item.className} key={"char_" + j}>
-            {item.value}
-          </span>
-        ))
-      );
+      return textMapping(chars);
 
     } else {
       return <div>Loading...</div>;
