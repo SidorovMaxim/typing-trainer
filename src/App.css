@@ -163,7 +163,6 @@ section > .text-container > .char_current {
 
 section > .text-container > .char_correct {
   color: #00cc66;
-  transition: 0.2s;
 }
 
 section > .text-container > .char_incorrect {
