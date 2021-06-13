@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class Text extends React.Component {
+class Text extends React.PureComponent {
 
   // Static methods
   getLoremIpsum() {
