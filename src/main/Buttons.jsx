@@ -17,7 +17,7 @@ export const ButtonStart = (props) => {
 
 export const ButtonRestart = () => {
   return (
-    <a className="button-restart" href="/">
+    <a className="button-restart" href="./">
       Restart
     </a>
   );

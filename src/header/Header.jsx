@@ -4,7 +4,7 @@ import React from 'react';
 const Header = () => {
   return (
     <header>
-      <a className='logo' href='/'>
+      <a className='logo' href='./'>
         Typing Trainer
       </a>
     </header>
